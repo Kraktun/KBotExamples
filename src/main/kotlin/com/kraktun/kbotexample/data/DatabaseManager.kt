@@ -6,11 +6,11 @@ import com.kraktun.kbot.objects.GroupStatus
 import com.kraktun.kbot.objects.Status
 import com.kraktun.kbot.objects.UserK
 import com.kraktun.kutils.log.KLogger
-import java.sql.Connection
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.transactions.transactionManager
 import org.telegram.telegrambots.meta.api.objects.User
+import java.sql.Connection
 
 object DatabaseManager : DataManager {
 
@@ -83,21 +83,23 @@ object DatabaseManager : DataManager {
     /**
      * Get user from DB
      */
-    fun getUser(userId: Int): UserK? {
+    fun getUser(userId: Long): UserK? {
         var userK: UserK? = null
         transaction {
             Users.select { Users.id eq userId }
                 .map {
-                    userK = UserK(id = userId,
+                    userK = UserK(
+                        id = userId,
                         status = Status.valueOf(it[Users.status].toUpperCase()),
                         username = it[Users.username],
-                        userInfo = it[Users.statusInfo])
+                        userInfo = it[Users.statusInfo]
+                    )
                 }
         }
         return userK
     }
 
-    override fun getUserStatus(userId: Int): Status {
+    override fun getUserStatus(userId: Long): Status {
         return getUser(userId)?.status ?: Status.NOT_REGISTERED
     }
 
@@ -137,8 +139,11 @@ object DatabaseManager : DataManager {
         transaction {
             GroupUsers.select { GroupUsers.group eq groupId }
                 .forEach {
-                    users.add(UserK(id = it[GroupUsers.user],
-                        status = Status.valueOf(it[GroupUsers.status].toUpperCase()))
+                    users.add(
+                        UserK(
+                            id = it[GroupUsers.user],
+                            status = Status.valueOf(it[GroupUsers.status].toUpperCase())
+                        )
                     )
                 }
         }
@@ -180,7 +185,7 @@ object DatabaseManager : DataManager {
      * Add users to group with defined status
      * If already present, update status
      */
-    fun addGroupUsers(groupId: Long, usersId: List<Int>, statusK: Status) {
+    fun addGroupUsers(groupId: Long, usersId: List<Long>, statusK: Status) {
         try {
             transaction {
                 GroupUsers.batchInsert(usersId) { userId ->
@@ -211,7 +216,7 @@ object DatabaseManager : DataManager {
     /**
      * Get user status in a group
      */
-    override fun getGroupUserStatus(groupId: Long, userId: Int): Status {
+    override fun getGroupUserStatus(groupId: Long, userId: Long): Status {
         var statusK: Status = Status.NOT_REGISTERED
         transaction {
             GroupUsers.select { GroupUsers.group eq groupId and (GroupUsers.user eq userId) }
@@ -225,7 +230,7 @@ object DatabaseManager : DataManager {
     /**
      * Update status for user in group
      */
-    fun updateGroupUser(groupId: Long, userId: Int, newStatus: Status) {
+    fun updateGroupUser(groupId: Long, userId: Long, newStatus: Status) {
         transaction {
             GroupUsers.update({ GroupUsers.group eq groupId and (GroupUsers.user eq userId) }) {
                 it[status] = newStatus.name

@@ -6,7 +6,7 @@ import org.jetbrains.exposed.sql.*
 // DSL
 
 object Users : Table() {
-    val id = integer("id")
+    val id = long("id")
     val username = text("username").nullable()
     val status = text("status")
     val statusInfo = text("status_info").nullable()
@@ -26,7 +26,7 @@ A user in a group does not need to start the bot in a private chat
  */
 object GroupUsers : Table() {
     val group = reference("group", Groups.id, onDelete = ReferenceOption.CASCADE)
-    val user = integer("user")
+    val user = long("user")
     val status = text("status")
     val statusInfo = text("status_info").nullable()
     val bannedUntil = long("bannedUntil").default(-1L)
