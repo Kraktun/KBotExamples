@@ -1,6 +1,8 @@
 package com.kraktun.kbotexample
 
 import com.kraktun.kbot.data.Configurator
+import com.kraktun.kbotexample.bots.PingBot
+import com.kraktun.kbotexample.bots.PongBot
 import com.kraktun.kbotexample.bots.ServerBot
 import com.kraktun.kbotexample.bots.TestBot
 import com.kraktun.kbotexample.data.DatabaseManager
@@ -25,7 +27,11 @@ fun main() {
     onStart()
     Configurator.withDataManager(botUsername = TEST_NAME, d = DatabaseManager)
         .withDataManager(botUsername = MAIN_NAME, d = DatabaseManager)
+        .withDataManager(botUsername = PING_BOT_NAME, d = DatabaseManager)
+        .withDataManager(botUsername = PONG_BOT_NAME, d = DatabaseManager)
         .withLogging { s -> printlnDTK("KBOT_LOG", s) }
     TestBot()
     ServerBot()
+    PingBot()
+    PongBot()
 }

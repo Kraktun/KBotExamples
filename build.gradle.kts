@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 plugins {
     java
     application
@@ -7,9 +9,9 @@ plugins {
 }
 
 group = "com.kraktun.kbotexample"
-version = "0.0.2"
+version = "0.0.3"
 
-val kBotVersion = "56b9956ccc"
+val kBotVersion = "fd4fbe0"
 val exposedVersion = "0.32.1"
 val sqliteVersion = "3.36.0.1"
 val telegramVersion = "5.3.0"
@@ -37,4 +39,16 @@ ktlint {
     outputToConsole.set(true)
     coloredOutput.set(true)
     disabledRules.set(setOf("no-wildcard-imports"))
+}
+
+application {
+    mainClass.set("com.kraktun.kbotexample.MainKt")
+}
+
+tasks {
+    named<ShadowJar>("shadowJar") {
+        manifest {
+            attributes(mapOf("Implementation-Version" to project.version))
+        }
+    }
 }

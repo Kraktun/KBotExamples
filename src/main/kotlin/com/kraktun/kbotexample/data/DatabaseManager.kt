@@ -14,12 +14,14 @@ import java.sql.Connection
 
 object DatabaseManager : DataManager {
 
+    private const val DATABASE_NAME = "my_database.db"
+
     init {
         connectDB()
     }
 
     private fun connectDB() {
-        val dbLink = KLogger.getOutputFile().parentFile.parent + "/my_database.db"
+        val dbLink = KLogger.getOutputFile().parentFile.parent + "/$DATABASE_NAME"
         val db = Database.connect("jdbc:sqlite:$dbLink", "org.sqlite.JDBC")
         db.transactionManager.defaultIsolationLevel = Connection.TRANSACTION_SERIALIZABLE // Or Connection.TRANSACTION_READ_UNCOMMITTED
 
@@ -90,7 +92,7 @@ object DatabaseManager : DataManager {
                 .map {
                     userK = UserK(
                         id = userId,
-                        status = Status.valueOf(it[Users.status].toUpperCase()),
+                        status = Status.valueOf(it[Users.status].uppercase()),
                         username = it[Users.username],
                         userInfo = it[Users.statusInfo]
                     )
@@ -142,7 +144,7 @@ object DatabaseManager : DataManager {
                     users.add(
                         UserK(
                             id = it[GroupUsers.user],
-                            status = Status.valueOf(it[GroupUsers.status].toUpperCase())
+                            status = Status.valueOf(it[GroupUsers.status].uppercase())
                         )
                     )
                 }
@@ -160,7 +162,7 @@ object DatabaseManager : DataManager {
         transaction {
             Groups.select { Groups.id eq groupId }
                 .map {
-                    statusK = GroupStatus.valueOf(it[Groups.status].toUpperCase())
+                    statusK = GroupStatus.valueOf(it[Groups.status].uppercase())
                 }
         }
         return statusK
@@ -221,7 +223,7 @@ object DatabaseManager : DataManager {
         transaction {
             GroupUsers.select { GroupUsers.group eq groupId and (GroupUsers.user eq userId) }
                 .map {
-                    statusK = Status.valueOf(it[GroupUsers.status].toUpperCase())
+                    statusK = Status.valueOf(it[GroupUsers.status].uppercase())
                 }
         }
         return statusK
