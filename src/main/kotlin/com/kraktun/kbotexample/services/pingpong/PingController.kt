@@ -1,12 +1,7 @@
 package com.kraktun.kbotexample.services.pingpong
 
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
-/**
- * Object that creates coroutines every time it receives a ping and checks if we received a pong in the next 60 seconds, otherwise fires an event.
- */
 object PingController {
 
     private lateinit var listener: PingListener
@@ -15,22 +10,29 @@ object PingController {
     private const val waitingTime = 60000L // 60 secs
     private var counter = 0L
 
+    private val job = Job()
+
     fun registerListener(listener: PingListener) {
         PingController.listener = listener
     }
 
     fun registerPing() {
         runBlocking {
-            launch {
+            var currentPing: Long = -1L
+            launch(job) {
                 // add a ping
-                var currentPing: Long
                 synchronized(this) {
+                    if (counter == Long.MAX_VALUE -1) {
+                        counter = -1L
+                    }
                     counter++
                     currentPing = counter
                     pingHolder.add(currentPing)
                 }
-                // wait
-                delay(waitingTime)
+            }
+            // wait
+            delay(waitingTime)
+            launch(job) {
                 // check if the previous ping is still there
                 synchronized(this) {
                     if (pingHolder.size > 0) {
