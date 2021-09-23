@@ -8,6 +8,7 @@ import com.kraktun.kbotexample.*
 import com.kraktun.kbotexample.commands.common.FormattedHelpCommand
 import com.kraktun.kbotexample.commands.common.HelpCommand
 import com.kraktun.kbotexample.commands.common.StartCommand
+import com.kraktun.kbotexample.commands.pingpong.SetPingIntervalCommand
 import com.kraktun.kbotexample.commands.pingpong.StartPingCommand
 import com.kraktun.kbotexample.commands.pingpong.StopPingCommand
 import com.kraktun.kbotexample.services.pingpong.PingController
@@ -31,6 +32,7 @@ class PingBot : SimpleLongPollingBot(PING_BOT_NAME, PING_BOT_TOKEN), PingListene
             .withCommand(StartCommand.engine)
             .withCommand(HelpCommand.engine)
             .withCommand(FormattedHelpCommand.engine)
+            .withCommand(SetPingIntervalCommand.engine)
             .onElse {
                 val message = it.messageOrPost()
                 if (message != null && message.hasText() && message.chat.id == PING_PONG_CHAT && message.text.equals(PONG, ignoreCase = true))

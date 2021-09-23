@@ -7,7 +7,7 @@ object PingController {
     private lateinit var listener: PingListener
     @Volatile
     private var pingHolder = mutableListOf<Long>()
-    private const val waitingTime = 60000L // 60 secs
+    private const val waitingTime = 30000L // 30 secs
     private var counter = 0L
 
     private val job = Job()

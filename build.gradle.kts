@@ -12,7 +12,7 @@ group = "com.kraktun.kbotexample"
 version = "0.0.4"
 
 val kBotVersion = "6951d20"
-val exposedVersion = "0.34.1"
+val exposedVersion = "0.34.2"
 val sqliteVersion = "3.36.0.2"
 val telegramVersion = "5.3.0"
 val kUtilsVersion = "b8e630a"

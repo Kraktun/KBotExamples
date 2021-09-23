@@ -6,7 +6,7 @@ import com.kraktun.kbot.objects.Target
 import com.kraktun.kbot.utils.simpleMessage
 
 /**
- * Simple command
+ * Simple command to get chat id
  */
 object InfoCommand {
 
