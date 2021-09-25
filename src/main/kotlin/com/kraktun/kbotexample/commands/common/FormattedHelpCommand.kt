@@ -27,7 +27,7 @@ object FormattedHelpCommand {
                     val flagUser = p.contains('u', ignoreCase = true)
                     val flagGroup = p.contains('g', ignoreCase = true)
                     val flagChannel = p.contains('c', ignoreCase = true)
-                    val status = when(args[1]) {
+                    val status = when (args[1]) {
                         "creator" -> Status.CREATOR
                         "dev" -> Status.DEV
                         "admin" -> Status.ADMIN
@@ -41,35 +41,44 @@ object FormattedHelpCommand {
                     }
                     val allCommands = mutableSetOf<String>()
                     if (flagUser) {
-                        allCommands.addAll(CommandProcessor.getRegisteredCommands(absSender, status, Target.USER).filter {
-                            it.command.startsWith("/")
-                        }.map {
-                            "${it.command.substringAfter("/")} - ${it.description}\n"
-                        })
+                        allCommands.addAll(
+                            CommandProcessor.getRegisteredCommands(absSender, status, Target.USER).filter {
+                                it.command.startsWith("/")
+                            }.map {
+                                "${it.command.substringAfter("/")} - ${it.description}\n"
+                            }
+                        )
                     }
                     if (flagGroup) {
-                        allCommands.addAll(CommandProcessor.getRegisteredCommands(absSender, status, Target.GROUP).filter {
-                            it.command.startsWith("/")
-                        }.map {
-                            "${it.command.substringAfter("/")} - ${it.description}\n"
-                        })
+                        allCommands.addAll(
+                            CommandProcessor.getRegisteredCommands(absSender, status, Target.GROUP).filter {
+                                it.command.startsWith("/")
+                            }.map {
+                                "${it.command.substringAfter("/")} - ${it.description}\n"
+                            }
+                        )
                     }
                     if (flagChannel) {
-                        allCommands.addAll(CommandProcessor.getRegisteredCommands(absSender, status, Target.CHANNEL).filter {
-                            it.command.startsWith("/")
-                        }.map {
-                            "${it.command.substringAfter("/")} - ${it.description}\n"
-                        })
+                        allCommands.addAll(
+                            CommandProcessor.getRegisteredCommands(absSender, status, Target.CHANNEL).filter {
+                                it.command.startsWith("/")
+                            }.map {
+                                "${it.command.substringAfter("/")} - ${it.description}\n"
+                            }
+                        )
                     }
                     allCommands.sorted().forEach {
                         text.append(it)
                     }
                     absSender.simpleMessage(text.toString(), message.chat, enableHtml = true)
                 } else {
-                    absSender.simpleMessage("Use as follow:\n<b>/fhelp ugc admin</b>\n\nwith <b>u</b> to include user commands" +
+                    absSender.simpleMessage(
+                        "Use as follow:\n<b>/fhelp ugc admin</b>\n\nwith <b>u</b> to include user commands" +
                             "\n<b>g</b> to include group commands" +
                             "\n<b>c</b> to include channel commands" +
-                            "\nThen one status among [creator, dev, admin, power, user, all]", message.chat, enableHtml = true)
+                            "\nThen one status among [creator, dev, admin, power, user, all]",
+                        message.chat, enableHtml = true
+                    )
                 }
             }
         }

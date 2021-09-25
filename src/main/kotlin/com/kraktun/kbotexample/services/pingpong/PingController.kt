@@ -7,32 +7,28 @@ object PingController {
     private lateinit var listener: PingListener
     @Volatile
     private var pingHolder = mutableListOf<Long>()
-    private const val waitingTime = 30000L // 30 secs
+    private const val waitingTime = 30L // 30 secs
     private var counter = 0L
-
-    private val job = Job()
 
     fun registerListener(listener: PingListener) {
         PingController.listener = listener
     }
 
-    fun registerPing() {
-        runBlocking {
-            var currentPing: Long = -1L
-            launch(job) {
-                // add a ping
-                synchronized(this) {
-                    if (counter == Long.MAX_VALUE -1) {
-                        counter = -1L
-                    }
-                    counter++
-                    currentPing = counter
-                    pingHolder.add(currentPing)
+    fun registerPing(scope: CoroutineScope) {
+        scope.launch {
+            var currentPing: Long
+            // add a ping
+            synchronized(this) {
+                if (counter == Long.MAX_VALUE - 1) {
+                    counter = -1L
                 }
+                counter++
+                currentPing = counter
+                pingHolder.add(currentPing)
             }
-            // wait
-            delay(waitingTime)
-            launch(job) {
+            delay(waitingTime * 1000L)
+
+            if (isActive) {
                 // check if the previous ping is still there
                 synchronized(this) {
                     if (pingHolder.size > 0) {

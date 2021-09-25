@@ -1,5 +1,6 @@
 package com.kraktun.kbotexample.utils
 
+import com.kraktun.kbot.data.Configurator
 import com.kraktun.kbotexample.data.DatabaseManager
 import com.kraktun.kbotexample.predefinedUsers
 import com.kraktun.kutils.file.BuildEnv
@@ -38,6 +39,7 @@ fun onStart() {
  */
 fun onShutdown() {
     printlnDTK(TAG, "Closing system")
+    Configurator.shutdown()
     KLogger.close()
     Thread.sleep(2000)
 }

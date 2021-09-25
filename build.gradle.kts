@@ -3,27 +3,28 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 plugins {
     java
     application
-    kotlin("jvm") version "1.5.30"
+    kotlin("jvm") version "1.5.31"
     id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
     id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "com.kraktun.kbotexample"
-version = "0.0.4"
+version = "0.0.5"
 
-val kBotVersion = "6951d20"
+val kBotVersion = "c363a62"
 val exposedVersion = "0.34.2"
 val sqliteVersion = "3.36.0.2"
 val telegramVersion = "5.3.0"
-val kUtilsVersion = "b8e630a"
+val kUtilsVersion = "441931a"
 
 repositories {
     mavenCentral()
     maven(url = "https://jitpack.io")
+    maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.30")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31")
     implementation("org.telegram:telegrambots:$telegramVersion")
     implementation("org.telegram:telegrambots-meta:$telegramVersion")
     implementation("org.telegram:telegrambotsextensions:$telegramVersion")
