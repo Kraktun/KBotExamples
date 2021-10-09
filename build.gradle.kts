@@ -11,8 +11,8 @@ plugins {
 group = "com.kraktun.kbotexample"
 version = "0.0.5"
 
-val kBotVersion = "c363a62"
-val exposedVersion = "0.34.2"
+val kBotVersion = "6db8cb9"
+val exposedVersion = "0.35.1"
 val sqliteVersion = "3.36.0.2"
 val telegramVersion = "5.3.0"
 val kUtilsVersion = "441931a"
@@ -28,7 +28,7 @@ dependencies {
     implementation("org.telegram:telegrambots:$telegramVersion")
     implementation("org.telegram:telegrambots-meta:$telegramVersion")
     implementation("org.telegram:telegrambotsextensions:$telegramVersion")
-    implementation("com.github.Kraktun:Kbot:$kBotVersion")
+    implementation("com.github.Kraktun:KBot:$kBotVersion")
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
     implementation("org.xerial:sqlite-jdbc:$sqliteVersion")
