@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.kraktun.kbotexample"
-version = "0.0.6"
+version = "0.0.7"
 
 val kBotVersion = "8a17fff"
 val exposedVersion = "0.36.2"
@@ -57,7 +57,7 @@ tasks {
 configurations.all {
     resolutionStrategy.eachDependency {
         if (requested.group == "org.apache.logging.log4j") {
-            useVersion("2.16.0")
+            useVersion("2.17.1")
             because("fix vulnerability")
         }
     }

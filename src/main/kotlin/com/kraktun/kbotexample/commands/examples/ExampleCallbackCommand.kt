@@ -24,7 +24,7 @@ object ExampleCallbackCommand {
                 val secondCallback = SecondCallback()
                 val key = getSimpleInlineKeyboard(listOf(simpleCallback.button, secondCallback.button))
                 absSender.sendKeyboard(s = "This is the description", c = message.chat, keyboard = key)
-                CallbackProcessor.insertCallback(user = message.from.id, chat = message.chatId, callbackHolder = simpleCallback)
+                CallbackProcessor.insertCallback(absSender = absSender, user = message.from.id, chat = message.chatId, callbackHolder = simpleCallback)
             }
         }
     )
@@ -52,6 +52,10 @@ object ExampleCallbackCommand {
         // note that the object updated is the same as in the parent command (i.e. can be used in subsequent commands)
         override fun onCallbackFired(absSender: AbsSender, callback: CallbackQuery) {
             counterObject.counter = counterObject.counter + 1
+        }
+
+        override fun onTtlExpired(absSender: AbsSender) {
+            TODO("Not yet implemented")
         }
     }
 
@@ -85,6 +89,10 @@ object ExampleCallbackCommand {
                 currentState = State.FIRST
                 changeLabel(absSender, callback, "Change to second state")
             }
+        }
+
+        override fun onTtlExpired(absSender: AbsSender) {
+            TODO("Not yet implemented")
         }
     }
 }
