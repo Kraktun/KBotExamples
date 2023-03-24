@@ -35,8 +35,9 @@ class PingBot : SimpleLongPollingBot(PING_BOT_NAME, PING_BOT_TOKEN), PingListene
             .withCommand(SetPingIntervalCommand.engine)
             .onElse {
                 val message = it.messageOrPost()
-                if (message != null && message.hasText() && message.chat.id == PING_PONG_CHAT && message.text.equals(PONG, ignoreCase = true))
+                if (message != null && message.hasText() && message.chat.id == PING_PONG_CHAT && message.text.equals(PONG, ignoreCase = true)) {
                     PingController.registerPong()
+                }
             }
             .register()
         PingController.registerListener(this)

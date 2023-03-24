@@ -28,6 +28,6 @@ object StartPingCommand {
                     }
                 }
             }
-        }
+        },
     )
 }

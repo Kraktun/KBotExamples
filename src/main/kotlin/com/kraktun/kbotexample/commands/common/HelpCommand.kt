@@ -20,7 +20,7 @@ object HelpCommand {
         targets = mapOf(
             Target.USER to Status.USER,
             Target.GROUP to Status.NOT_REGISTERED,
-            Target.SUPERGROUP to Status.NOT_REGISTERED
+            Target.SUPERGROUP to Status.NOT_REGISTERED,
         ),
         exe = { absSender, message ->
             run {
@@ -30,6 +30,6 @@ object HelpCommand {
                 }
                 absSender.simpleMessage(text, message.chat, enableHtml = true)
             }
-        }
+        },
     )
 }

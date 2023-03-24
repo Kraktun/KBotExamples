@@ -22,7 +22,7 @@ fun main() {
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
-        }
+        },
     )
     onStart()
     Configurator.withDataManager(botUsername = TEST_NAME, d = DatabaseManager)

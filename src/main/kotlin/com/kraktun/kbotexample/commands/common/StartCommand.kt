@@ -21,14 +21,15 @@ object StartCommand {
         targets = mapOf(
             Target.USER to Status.NOT_REGISTERED,
             Target.GROUP to Status.NOT_REGISTERED,
-            Target.SUPERGROUP to Status.NOT_REGISTERED
+            Target.SUPERGROUP to Status.NOT_REGISTERED,
         ),
         exe = { absSender, message ->
             run {
                 val chatId = message.chatId
-                if (message.chat.isUserChat && DatabaseManager.getUser(message.from.id) == null) // Add only if not present, or it will overwrite current value
+                if (message.chat.isUserChat && DatabaseManager.getUser(message.from.id) == null) {
+                    // Add only if not present, or it will overwrite current value
                     DatabaseManager.addUser(user = message.from, userStatus = Status.USER)
-                else if (message.chat.isGroupOrSuper()) {
+                } else if (message.chat.isGroupOrSuper()) {
                     // If it's a group insert the group and add the admins as admin
                     if (!DatabaseManager.groupExists(chatId)) {
                         DatabaseManager.addGroup(chatId)
@@ -48,6 +49,6 @@ object StartCommand {
                 }
                 absSender.simpleMessage("Welcome", chatId)
             }
-        }
+        },
     )
 }

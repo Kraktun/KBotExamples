@@ -5,6 +5,7 @@ import kotlinx.coroutines.*
 object PingController {
 
     private lateinit var listener: PingListener
+
     @Volatile
     private var pingHolder = mutableListOf<Long>()
     private const val waitingTime = 30L // 30 secs

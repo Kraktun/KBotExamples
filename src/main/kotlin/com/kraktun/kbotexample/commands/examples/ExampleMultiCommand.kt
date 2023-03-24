@@ -21,7 +21,7 @@ object ExampleMultiCommand {
                 absSender.simpleMessage(s = "This is the first message received: ${message.text}", c = message.chat)
                 MultiCommandsHandler.insertCommand(absSender = absSender, user = message.from, chat = message.chat, command = SecondStep(), data = message.text)
             }
-        }
+        },
     )
 
     private class SecondStep : MultiCommandInterface {

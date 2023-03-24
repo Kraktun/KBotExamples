@@ -18,8 +18,9 @@ class PongBot : SimpleLongPollingBot(PONG_BOT_NAME, PONG_BOT_TOKEN) {
         this.withCommand(HelloCommand.engine)
             .onElse { up ->
                 val message = up.messageOrPost()
-                if (message != null && message.hasText() && message.chat.id == PING_PONG_CHAT && message.text.equals(PING, ignoreCase = true))
+                if (message != null && message.hasText() && message.chat.id == PING_PONG_CHAT && message.text.equals(PING, ignoreCase = true)) {
                     this.simpleMessage(PONG, message.chat)
+                }
             }.register()
     }
 }

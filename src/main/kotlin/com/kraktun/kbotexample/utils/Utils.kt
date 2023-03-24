@@ -22,11 +22,15 @@ fun List<String>.runCommand(
 fun <T> T?.ifNotNull(func: (T) -> T?): T? {
     return if (this != null) {
         func(this)
-    } else return null
+    } else {
+        return null
+    }
 }
 
 fun <T> T?.ifNull(func: () -> T?): T? {
     return if (this == null) {
         func()
-    } else return null
+    } else {
+        return null
+    }
 }

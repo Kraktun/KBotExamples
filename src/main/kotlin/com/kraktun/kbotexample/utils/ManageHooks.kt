@@ -11,20 +11,20 @@ import com.kraktun.kutils.time.TimeFormat
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "MANAGE_HOOKS"
+
 /**
  * What to execute on start
  */
 fun onStart() {
-
     KLogger.initialize(
         c = com.kraktun.kbotexample.Main::class.java,
         type = LogFolder.DEFAULT,
         pattern = TimeFormat.YMD,
         logFolder = "logs",
-        buildEnv = BuildEnv.INTELLIJ
+        buildEnv = BuildEnv.INTELLIJ,
     ).withExecutor(
         interval = 120,
-        unit = TimeUnit.SECONDS
+        unit = TimeUnit.SECONDS,
     )
     printlnDTK(TAG, "Starting system")
     printlnDTK(TAG, "Current version is: ${com.kraktun.kbotexample.Main::class.java.getPackage().implementationVersion}")

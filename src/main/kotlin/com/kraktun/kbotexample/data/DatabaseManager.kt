@@ -94,7 +94,7 @@ object DatabaseManager : DataManager {
                         id = userId,
                         status = Status.valueOf(it[Users.status].uppercase()),
                         username = it[Users.username],
-                        userInfo = it[Users.statusInfo]
+                        userInfo = it[Users.statusInfo],
                     )
                 }
         }
@@ -144,13 +144,14 @@ object DatabaseManager : DataManager {
                     users.add(
                         UserK(
                             id = it[GroupUsers.user],
-                            status = Status.valueOf(it[GroupUsers.status].uppercase())
-                        )
+                            status = Status.valueOf(it[GroupUsers.status].uppercase()),
+                        ),
                     )
                 }
         }
-        if (users.size > 0)
+        if (users.size > 0) {
             groupK = GroupK(id = groupId, users = users, status = getGroupStatus(groupId))
+        }
         return groupK
     }
 

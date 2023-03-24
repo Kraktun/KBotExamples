@@ -23,6 +23,6 @@ object StopPingCommand {
                     absSender.simpleMessage(s = "Disabled ping", c = message.chat)
                 }
             }
-        }
+        },
     )
 }

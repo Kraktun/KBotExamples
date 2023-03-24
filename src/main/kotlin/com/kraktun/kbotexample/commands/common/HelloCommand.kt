@@ -17,15 +17,16 @@ object HelloCommand {
             Target.USER to Status.NOT_REGISTERED, // NOT_REGISTERED is the lowest acceptable status of the user, all users with a status >= NOT_REGISTERED can use the command
             Target.GROUP to Status.NOT_REGISTERED,
             Target.SUPERGROUP to Status.NOT_REGISTERED,
-            Target.CHANNEL to Status.NOT_REGISTERED
+            Target.CHANNEL to Status.NOT_REGISTERED,
         ),
         exe = { absSender, message ->
             run {
-                if (message.isChannelMessage)
+                if (message.isChannelMessage) {
                     absSender.simpleMessage("Hello There", message.chat)
-                else
+                } else {
                     absSender.simpleMessage(s = "Hello there, ${message.from.formattedName()}", c = message.chat)
+                }
             }
-        }
+        },
     )
 }

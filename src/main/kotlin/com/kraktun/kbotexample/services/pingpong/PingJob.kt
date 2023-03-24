@@ -15,13 +15,14 @@ class PingJob : JobTask() {
             key = "PINGJOB",
             interval = 60, // seconds
             initialDelay = 5,
-            botList = listOfNotNull(BotsManager.getByUsername(PING_BOT_NAME))
+            botList = listOfNotNull(BotsManager.getByUsername(PING_BOT_NAME)),
         )
     }
 
     override fun execute(scope: CoroutineScope) {
         val absSender = jobInfo.botList[0]
-        if (absSender.simpleMessage("ping", PING_PONG_CHAT) != null)
+        if (absSender.simpleMessage("ping", PING_PONG_CHAT) != null) {
             PingController.registerPing(scope)
+        }
     }
 }

@@ -28,6 +28,6 @@ object AdminCommand {
                 keyboard.oneTimeKeyboard = true
                 absSender.sendKeyboard(c = message.chat, s = "Here are the commands", keyboard = keyboard)
             }
-        }
+        },
     )
 }

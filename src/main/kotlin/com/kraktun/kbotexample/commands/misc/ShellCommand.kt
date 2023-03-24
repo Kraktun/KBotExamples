@@ -16,19 +16,19 @@ object ShellCommand {
         command = "/shell",
         description = "Execute a shell command",
         targets = mapOf(
-            Target.USER to Status.CREATOR
+            Target.USER to Status.CREATOR,
         ),
         exe = { absSender, message ->
             run {
                 listOf("ls", "-la").runCommand(
                     onFailure = {
                         absSender.simpleMessage(s = "Failed with result:\n<b>${it.message}</b>", c = message.chat, enableHtml = true)
-                    }
+                    },
                 ).ifNotNull {
                     absSender.simpleMessage(s = "Command sent with result:\n<b>$it</b>", c = message.chat, enableHtml = true)
                     it
                 }
             }
-        }
+        },
     )
 }

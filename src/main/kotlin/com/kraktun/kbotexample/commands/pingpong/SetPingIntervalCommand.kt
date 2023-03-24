@@ -40,6 +40,6 @@ object SetPingIntervalCommand {
                     }
                 }
             }
-        }
+        },
     )
 }

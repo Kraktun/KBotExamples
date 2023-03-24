@@ -46,7 +46,7 @@ object FormattedHelpCommand {
                                 it.command.startsWith("/")
                             }.map {
                                 "${it.command.substringAfter("/")} - ${it.description}\n"
-                            }
+                            },
                         )
                     }
                     if (flagGroup) {
@@ -55,7 +55,7 @@ object FormattedHelpCommand {
                                 it.command.startsWith("/")
                             }.map {
                                 "${it.command.substringAfter("/")} - ${it.description}\n"
-                            }
+                            },
                         )
                     }
                     if (flagChannel) {
@@ -64,7 +64,7 @@ object FormattedHelpCommand {
                                 it.command.startsWith("/")
                             }.map {
                                 "${it.command.substringAfter("/")} - ${it.description}\n"
-                            }
+                            },
                         )
                     }
                     allCommands.sorted().forEach {
@@ -77,10 +77,11 @@ object FormattedHelpCommand {
                             "\n<b>g</b> to include group commands" +
                             "\n<b>c</b> to include channel commands" +
                             "\nThen one status among [creator, dev, admin, power, user, all]",
-                        message.chat, enableHtml = true
+                        message.chat,
+                        enableHtml = true,
                     )
                 }
             }
-        }
+        },
     )
 }

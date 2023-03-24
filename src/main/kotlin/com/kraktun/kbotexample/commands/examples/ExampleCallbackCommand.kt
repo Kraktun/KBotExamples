@@ -26,7 +26,7 @@ object ExampleCallbackCommand {
                 absSender.sendKeyboard(s = "This is the description", c = message.chat, keyboard = key)
                 CallbackProcessor.insertCallback(absSender = absSender, user = message.from.id, chat = message.chatId, callbackHolder = simpleCallback)
             }
-        }
+        },
     )
 
     private data class SimpleObject(var counter: Int)
@@ -35,10 +35,13 @@ object ExampleCallbackCommand {
 
         // unique id of the callback
         override val id = "simple_callback_id"
+
         // label in the button to click
         override var label = "Increment Counter"
+
         // time to live: after this time (in seconds) the callback can't be fired anymore
         override val ttl = 60L
+
         // display result as an alert rather than a toast
         override var resultAsAlert = false
         override var resultAsUrl = false
@@ -69,16 +72,18 @@ object ExampleCallbackCommand {
 
         private enum class State {
             FIRST,
-            SECOND
+            SECOND,
         }
+
         // Keep track of current state, you could also use the label, but pay attention that onCallbackFired is called before getCallbackMessage
         private var currentState = State.FIRST
 
         override val getCallbackMessage = { _: CallbackQuery ->
-            if (currentState == State.SECOND)
+            if (currentState == State.SECOND) {
                 "Changed state to second"
-            else
+            } else {
                 "Changed state to first"
+            }
         }
 
         override fun onCallbackFired(absSender: AbsSender, callback: CallbackQuery) {

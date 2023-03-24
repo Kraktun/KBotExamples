@@ -21,5 +21,5 @@ const val PONG = "pong"
 
 val predefinedUsers = listOf(
     UserK(id = 12345, username = "@my_username", status = Status.CREATOR),
-    UserK(id = 67890, username = "@another_username", status = Status.DEV)
+    UserK(id = 67890, username = "@another_username", status = Status.DEV),
 )

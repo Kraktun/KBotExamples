@@ -17,12 +17,12 @@ object InfoCommand {
             Target.USER to Status.ADMIN,
             Target.GROUP to Status.ADMIN,
             Target.SUPERGROUP to Status.ADMIN,
-            Target.CHANNEL to Status.NOT_REGISTERED
+            Target.CHANNEL to Status.NOT_REGISTERED,
         ),
         exe = { absSender, message ->
             run {
                 absSender.simpleMessage(s = "The chat id is: ${message.chatId}", c = message.chat)
             }
-        }
+        },
     )
 }
